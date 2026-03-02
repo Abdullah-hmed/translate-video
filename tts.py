@@ -1,5 +1,7 @@
 from pocket_tts import TTSModel
 import scipy.io.wavfile
+import os
+import argparse
 
 def pocket_tts(input_audio, text, filename="pocket_output.wav"):    
     tts_model = TTSModel.load_model()
@@ -11,7 +13,11 @@ def pocket_tts(input_audio, text, filename="pocket_output.wav"):
     return filename
 
 if __name__ == "__main__":
-    text = "Hello! This is Microsoft Edge TTS, saved as an MP3 file."
-    filename = pocket_tts("source/temp_audio.wav", "Hello, this is me, Donald Trump, I have accepted Islam and I am now a Muslim, Alhamdulillah!")
+    parser = argparse.ArgumentParser(description="Generate speech using Pocket TTS")
+    parser.add_argument("--text", type=str, default="Hello! This is an audio generated using Pocket TTS, saved as an MP3 file.")
+    args = parser.parse_args()
+
+    filename = pocket_tts("source/temp_audio.wav", args.text, filename="source/pocket_output.wav")
 
     print(f"TTS generation completed. Output saved as {filename}")
+    os.system(f"start {filename}")
