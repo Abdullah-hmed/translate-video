@@ -1,6 +1,5 @@
 from faster_whisper import WhisperModel
 from utils import convert_to_wav
-from translate import quick_translate, llm_translate
 from tts import pocket_tts
 import argparse, os
 from pathlib import Path
