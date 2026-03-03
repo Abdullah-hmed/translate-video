@@ -7,7 +7,16 @@ import argparse
 
 def trim_audio(input_path, output_path="source/trimmed_ref.wav", max_duration=12):
     audio, sr = librosa.load(input_path, sr=None)
+
+    # Calculate audio duration 
+    actual_duration = len(audio) / sr
+
+    if actual_duration < max_duration:
+        max_duration = actual_duration
+
+    # Trim safely
     trimmed = audio[:int(max_duration * sr)]
+
     sf.write(output_path, trimmed, sr)
     return output_path
 
